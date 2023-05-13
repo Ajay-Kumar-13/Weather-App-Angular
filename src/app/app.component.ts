@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component , Input} from '@angular/core';
+import { weatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'weatherApp-angular';
+  temp!: String;
+  city!: String;
+  constructor(private service: weatherService) {}
+
+  handleButton(city: String) {
+    this.service.getWeather(city).subscribe(response => {
+      this.temp = response.main.temp;
+      this.city = response.name;
+    });
+  }
 }
