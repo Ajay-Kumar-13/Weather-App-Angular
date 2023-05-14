@@ -15,7 +15,7 @@
                     {{Temp}}° Celcius
                 </div>
                 <div class='city text-center'>
-                    {{C}}
+                    {{City}}
                 </div>
             </div>
         </div>
@@ -23,10 +23,9 @@
             <div class="d-flex flex-row">
                 <form class='inputField d-flex align-items-center' [formGroup]="weatherForm">
                     <input class="text-start form-control" type='text' name='city' placeholder='Enter city'
-                         formControlName="city" />
+                         formControlName="city" onkeydown="return /[a-z]/i.test(event.key)"/>
                 </form>
                 <button (click)="handleWeather()">Get Weather</button>
-                
             </div>
             
             <div class="errorMessage"

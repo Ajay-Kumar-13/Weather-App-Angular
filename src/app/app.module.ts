@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { RouterModule, Routes } from "@angular/router";
 
 import { AppComponent } from './app.component';
 import { main } from './components/main/main.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -17,9 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
-    FontAwesomeModule,
     ReactiveFormsModule
   ],
   providers: [],

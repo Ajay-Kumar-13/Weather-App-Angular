@@ -10,10 +10,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 
 export class main {
-
-  City: String = "";
   Temp!: String;
-  C!: String;
+  City!: String;
   faSpinner = faSpinner;
   spin: boolean = true;
   error: boolean = false;
@@ -23,7 +21,7 @@ export class main {
       navigator.geolocation.getCurrentPosition(position => {
         this.service.getLocation(position.coords.latitude, position.coords.longitude).subscribe(data => {
           this.Temp = String(data.main.temp).split(".")[0];
-          this.C = data.name;
+          this.City = data.name;
           this.spin = false;
           this.error = false;
         }, err => {
@@ -37,9 +35,9 @@ export class main {
   handleWeather() {
 
     this.spin = true;
-    this.service.getWeather(this.City).subscribe(data => {
+    this.service.getWeather(this.weatherForm.value.city!).subscribe(data => {
       this.Temp = String(data.main.temp).split(".")[0];
-      this.C = data.name;
+      this.City = data.name;
       this.spin = false;
       this.error = false;
     }, err => {
