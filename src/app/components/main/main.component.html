@@ -1,17 +1,16 @@
-<div class="container row">
+<div class="row">
     <div class="col-12 col-md-6">
-        <div class="display d-flex align-items-center flex-column">
-            <div class="title text-center">
+        <div class="display text-center">
+            <div class="title">
                 The Weather App
             </div>
 
             <div *ngIf="spin" class="spinner-grow" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-
-            <div [ngStyle]="{'color': 'red', 'font-size': '20px'}" *ngIf="error">Enter Valid City</div>
+            
             <div *ngIf="!spin&&!error" class="mb-3">
-                <div class='temp d-flex align-items-center justify-content-center text-start'>
+                <div class='temp d-flex align-items-center justify-content-center'>
                     {{Temp}}° Celcius
                 </div>
                 <div class='city text-center'>
@@ -19,27 +18,37 @@
                 </div>
             </div>
         </div>
-        <div class='input d-flex align-items-center justify-content-center flex-column '>
-            <div class="d-flex flex-row">
-                <form class='inputField d-flex align-items-center' [formGroup]="weatherForm">
+        <div class='input d-flex align-items-center justify-content-center'>
+            <div>
+                <form class='inputField' [formGroup]="weatherForm">
                     <input class="text-start form-control" type='text' name='city' placeholder='Enter city'
-                         formControlName="city" onkeydown="return /[a-z]/i.test(event.key)"/>
+                        formControlName="city" id="cityName" />
                 </form>
-                <button (click)="handleWeather()">Get Weather</button>
+                <div class="text-danger" *ngIf="error">Enter Valid City</div>
+                <div class="text-danger"
+                    *ngIf="!error&&weatherForm.get('city')?.touched&&weatherForm.get('city')?.hasError('pattern')">
+                    Enter
+                    Valid City</div>
+                <div class="text-danger"
+                    *ngIf="!error&&weatherForm.get('city')?.touched&&weatherForm.get('city')?.hasError('required')">
+                    Enter
+                    City</div>
             </div>
-            
-            <div class="errorMessage"
-                *ngIf="weatherForm.get('city')?.touched&&weatherForm.get('city')?.hasError('pattern')">
-                Enter
-                Valid City</div>
-            <div class="errorMessage"
-                *ngIf="weatherForm.get('city')?.touched&&weatherForm.get('city')?.hasError('required')">
-                Enter
-                City</div>
+
+            <div>
+                <button [disabled]="!weatherForm.valid" (click)="handleWeather(this.weatherForm.value.city!)">Get Weather</button>
+            </div>
+
+
         </div>
 
     </div>
-    <div class="col-12 col-md-6 d-flex align-items-center">
+    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
         <img class="img-fluid" src='../../../assets/weather-illustration.png' />
     </div>
+</div>
+
+<div>
+    <!-- <h3>Weather Forecast for Next Seven Days</h3> -->
+    <canvas id="myChart" width="700" height="250"></canvas>
 </div>
